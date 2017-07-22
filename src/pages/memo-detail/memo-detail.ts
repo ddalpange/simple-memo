@@ -1,24 +1,26 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the MemoDetailPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { MemoCreatePage } from './../memo-create/memo-create';
 
+@IonicPage()
 @Component({
   selector: 'page-memo-detail',
   templateUrl: 'memo-detail.html',
 })
-export class MemoDetailPage {
 
+export class MemoDetailPage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad MemoDetailPage');
+  
+  ngOnInit() {
   }
 
+  onOpenEditMemo() {
+    this.navCtrl.push(MemoCreatePage);
+  }
+  
+  onDeleteMemo() {
+    this.navCtrl.pop();
+  }
 }
