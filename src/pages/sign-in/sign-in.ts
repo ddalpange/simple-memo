@@ -1,24 +1,43 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { Component, OnInit } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-/**
- * Generated class for the SignInPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+import { SignUpPage } from './../sign-up/sign-up';
+import { MemoListPage } from './../memo-list/memo-list';
 
+@IonicPage()
 @Component({
   selector: 'page-sign-in',
   templateUrl: 'sign-in.html',
 })
+
 export class SignInPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
+  emailAddress: string;
+  password: string;
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+  ) {}
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignInPage');
   }
-
+  ngOnInit() {
+  }
+  onClickDDalpange() {
+    window.location.href = "https://ddalpange.github.io";
+  }
+  onChangeEmailAddress(event: any) {
+    this.emailAddress = event.target.value;
+  }
+  onChangePassword(event: any) {
+    this.password = event.target.value;
+  }
+  
+  onClickEmailLogIn() {
+    this.navCtrl.setRoot(MemoListPage);    
+  }
+  onClickFacebookLogin() {
+  }
+  onClickSignUp() {
+    this.navCtrl.push(SignUpPage);
+  }
 }
