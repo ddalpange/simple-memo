@@ -12,6 +12,7 @@ import { MemoCreatePageModule } from './../pages/memo-create/memo-create.module'
 
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { MemoManagerProvider } from './../providers/memo-manager/memo-manager';
 
 import { MyApp } from './app.component';
 
@@ -34,6 +35,7 @@ import { MyApp } from './app.component';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    MemoManagerProvider
   ]
 })
 export class AppModule {}
