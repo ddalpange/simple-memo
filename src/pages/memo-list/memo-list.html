@@ -4,31 +4,19 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card (click)="onClickViewMemoDetail()">
-    <ion-card-header>
-      제목1
-    </ion-card-header>
-    <ion-card-content>
-      내용내용내용내용내용내용내용내용내용내용내용내용
-    </ion-card-content>
-  </ion-card>
-  <ion-card (click)="onClickViewMemoDetail()">
-    <ion-card-header>
-      제목2
-    </ion-card-header>
-    <ion-card-content>
-      내용내용내용내용내용내용내용내용내용내용내용내용
-    </ion-card-content>
-  </ion-card>
-  <ion-card (click)="onClickViewMemoDetail()">
-    <ion-card-header>
-      제목3
-    </ion-card-header>
-    <ion-card-content>
-      내용내용내용내용내용내용내용내용내용내용내용내용
-    </ion-card-content>
-  </ion-card>
+  <ng-template ngFor let-memo [ngForOf]="memoList" let-i="index">
+    <ion-card (click)="onClickViewMemoDetail(memo)">
+      <ion-card-header>
+        {{ memo.title }}
+      </ion-card-header>
+      <ion-card-content>
+        {{ memo.contents }}
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
   <ion-fab right bottom>
-    <button ion-fab icon-only><ion-icon name="add" big></ion-icon></button>
+    <button ion-fab icon-only (click)="onClickCreateMemo()">
+      <ion-icon name="add" big></ion-icon>
+    </button>
   </ion-fab>
 </ion-content>
