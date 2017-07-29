@@ -1,8 +1,7 @@
-import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthManagerProvider } from '../../providers/auth-manager/auth-manager';
-import * as firebase from 'firebase/app';
+import { LoadingController, AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -11,14 +10,15 @@ import * as firebase from 'firebase/app';
 })
 export class SignUpPage {
 
-  emailAddress: string;
-  password: string;
+  emailAddress: string = '';
+  password: string = '';
 
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     public authManager: AuthManagerProvider,
-    public afAuth: AngularFireAuth
+    public loadingCtrl: LoadingController,
+    public alertCtrl: AlertController,
   ) {
   }
   
@@ -27,9 +27,45 @@ export class SignUpPage {
   }
   
   onClickSignUp() {
-    // this.authManager.signUpUser(this.emailAddress, this.password);
-    // this.navCtrl.pop();    
-    this.afAuth.auth.createUserWithEmailAndPassword(this.emailAddress, this.password).then(res => console.log(res));
+    let loader = this.loadingCtrl.create({
+      content: '회원가입 중입니다 ..'
+    });
+    loader.present();
+ 
+    this.authManager.signUpUser(this.emailAddress, this.password)
+    .then(user => {
+      console.log('성공!', user);
+      loader.dismiss();
+      const alert = this.getSuccessAlert();
+      alert.present();
+    })
+    .catch(err => { 
+      console.error('실패!', err);
+      loader.dismiss();
+      const alert = this.getFailAlert(err.message);
+      alert.present();
+    });
+  }
+
+  getSuccessAlert() {
+    return this.alertCtrl.create({
+      title: 'success!!',
+      subTitle: '회원가입에 성공하였습니다.',
+      buttons: [{
+        text: '확인',
+        handler: () => { this.navCtrl.pop(); }
+      }]
+    });
+  }
+
+  getFailAlert(message: string) {
+    return this.alertCtrl.create({
+      title: 'failed..',
+      subTitle: message,
+      buttons: [{
+        text: '확인'
+      }]
+    });
   }
   
   onClickNavBack() {

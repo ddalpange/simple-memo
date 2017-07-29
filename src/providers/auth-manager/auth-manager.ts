@@ -14,6 +14,8 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthManagerProvider {
 
+  userInfo: any = null;
+
   constructor(
     public http: Http, 
     public afAuth: AngularFireAuth,
@@ -21,16 +23,24 @@ export class AuthManagerProvider {
     console.log('Hello AuthManagerProvider Provider');
   }
 
+  getUserInfo() {
+    return this.userInfo;
+  }
+
+  setUserInfo(userInfo: any) {
+    this.userInfo = userInfo;
+  }
+
   loginUser(email: string, password: string) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(res => console.log(res));
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+            .then(userInfo => {
+              this.setUserInfo;
+              return userInfo;
+            });
   }
 
   signUpUser(email: string, password: string) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-    .then( newUser => {
-      console.log(newUser);
-      this.afDB.database.ref('userProfile').child(newUser.uid).set({email: email});
-    });
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
   }
 
   resetPassword(email: string) {
