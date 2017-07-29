@@ -1,0 +1,10 @@
+{
+    "hosting": {
+    "public": "www", // 업로드될 폴더의 경로입니다.
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
