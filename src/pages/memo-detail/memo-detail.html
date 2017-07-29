@@ -4,7 +4,6 @@
       <button ion-button icon-only (click)="onDeleteMemo(memo)">
         <ion-icon name="trash"></ion-icon>
       </button>
-
       <button ion-button icon-only>
         <ion-icon name="more"></ion-icon>
       </button>
@@ -17,7 +16,7 @@
       <h1>{{ memo.title }}</h1>
     </ion-card-header>
     <ion-card-content>
-      <p>{{ memo.contents }}</p>
+      <p [innerHTML]="memo.contents"></p>
       <div class="etc">
         <p>
           <span>저자</span> 

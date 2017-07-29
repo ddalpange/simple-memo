@@ -2,6 +2,7 @@ import { MemoManagerProvider } from './../../providers/memo-manager/memo-manager
 import { Memo } from './../../models/memo/memo.interface';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import * as A from 'angular-froala-wysiwyg';
 
 @IonicPage()
 @Component({
@@ -13,6 +14,13 @@ export class MemoCreatePage {
   memo: Memo;
   title: string;
   contents: string;
+  options: any = {
+    heightMin: 450,
+    toolbarButtons: [
+      'bold', 'italic', 'underline', 'paragraphFormat', 'formatOL',
+      'formatUL', 'insertHTML', 'undo', 'redo', 'html'
+    ]
+  }
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
@@ -38,7 +46,6 @@ export class MemoCreatePage {
 
   onSaveMemo() {
     if(this.memo) {
-
       this.memoManager.editMemo(this.memo, this.title, this.contents);
     } else {
       this.memoManager.createMemo(this.title, this.contents);
