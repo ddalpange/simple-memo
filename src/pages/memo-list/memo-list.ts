@@ -1,5 +1,5 @@
 import { AuthManagerProvider } from './../../providers/auth-manager/auth-manager';
-import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database';
 import { Memo } from './../../models/memo/memo.interface';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
@@ -17,6 +17,7 @@ import { MemoManagerProvider } from './../../providers/memo-manager/memo-manager
 
 export class MemoListPage {
 
+  searchKeyword: string = '';
   memoList: FirebaseListObservable<Memo>;
 
   constructor(
@@ -30,6 +31,10 @@ export class MemoListPage {
  
   ngOnInit() {
     this.memoList = this.memoManager.getMemoList();
+  }
+
+  filterMemo(memo: Memo): boolean {
+    return memo.title.includes(this.searchKeyword) || memo.title.includes(this.searchKeyword);
   }
 
   onClickViewMemoDetail(memo: Memo) {

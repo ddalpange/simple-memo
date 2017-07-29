@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchKeyword"></ion-searchbar>
     <ion-buttons end>
       <button ion-button icon-only (click)="onClickMoreOption()">
         <ion-icon name="more">
@@ -11,7 +11,7 @@
 </ion-header>
 <ion-content>
   <ng-template ngFor let-memo [ngForOf]="memoList | async" let-i="index">
-    <ion-card (click)="onClickViewMemoDetail(memo)">
+    <ion-card (click)="onClickViewMemoDetail(memo)" *ngIf="filterMemo(memo)">
       <ion-card-header>
         {{ memo.title }}
       </ion-card-header>
