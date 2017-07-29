@@ -1,6 +1,8 @@
+import { AuthManagerProvider } from './../../providers/auth-manager/auth-manager';
+import { FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Memo } from './../../models/memo/memo.interface';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, ActionSheetController } from 'ionic-angular';
 
 import { MemoCreatePage } from './../memo-create/memo-create';
 import { MemoDetailPage } from './../memo-detail/memo-detail';
@@ -15,17 +17,19 @@ import { MemoManagerProvider } from './../../providers/memo-manager/memo-manager
 
 export class MemoListPage {
 
-  memoList: Memo[] = [];
+  memoList: FirebaseListObservable<Memo>;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
+    public loadingCtrl: LoadingController,
+    public actionSheetCtrl: ActionSheetController,
+    public authManager: AuthManagerProvider,
     public memoManager: MemoManagerProvider) {
   }
  
   ngOnInit() {
     this.memoList = this.memoManager.getMemoList();
-    console.log(this.memoList);
   }
 
   onClickViewMemoDetail(memo: Memo) {
@@ -34,5 +38,23 @@ export class MemoListPage {
   
   onClickCreateMemo() {
     this.navCtrl.push(MemoCreatePage);
+  }
+
+  onClickMoreOption() {
+    const actionSheet = this.actionSheetCtrl.create({
+      buttons: [
+        {
+          text: 'Logout',
+          role: 'destructive',
+          handler: () => {
+            this.authManager.logoutUser();
+          }
+        }, {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    });
+    actionSheet.present();
   }
 }

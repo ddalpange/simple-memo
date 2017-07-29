@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
+import * as firebase from 'firebase/app';
 
 import 'rxjs/add/operator/map';
 
@@ -14,27 +16,44 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class AuthManagerProvider {
 
-  userInfo: any = null;
+  userInfo: firebase.User = null;
+  authState: Observable<firebase.User>
 
   constructor(
     public http: Http, 
     public afAuth: AngularFireAuth,
     public afDB: AngularFireDatabase) {
-    console.log('Hello AuthManagerProvider Provider');
+    this.initAuth();
+  }
+
+  initAuth() {
+    this.authState = this.afAuth.authState;
+    this.authState.subscribe(
+      (user: firebase.User) => {
+        if(user) {
+          this.userInfo = user;
+        } else {
+        }
+      }
+    )
+  }
+
+  getAuthState(): Observable<firebase.User> {
+    return this.authState;
   }
 
   getUserInfo() {
     return this.userInfo;
   }
 
-  setUserInfo(userInfo: any) {
+  setUserInfo(userInfo: firebase.User) {
     this.userInfo = userInfo;
   }
 
   loginUser(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
             .then(userInfo => {
-              this.setUserInfo;
+              this.setUserInfo(userInfo);
               return userInfo;
             });
   }

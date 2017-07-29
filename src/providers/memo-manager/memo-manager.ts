@@ -1,7 +1,8 @@
-import { MEMOLIST } from './../../mocks/memo/memo-list.mock';
+import { AuthManagerProvider } from './../auth-manager/auth-manager';
 import { Memo } from './../../models/memo/memo.interface';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 
 /*
   Generated class for the MemoManagerProvider provider.
@@ -12,61 +13,48 @@ import { Http } from '@angular/http';
 @Injectable()
 export class MemoManagerProvider {
 
-  memoList: Memo[];
+  memoList: FirebaseListObservable<any>
 
-  constructor(public http: Http) {
+  constructor(
+    public http: Http,
+    public afDB: AngularFireDatabase,
+    public authManager: AuthManagerProvider
+  ) {
     this.initMemoList();
   }
 
   initMemoList() {
-    this.memoList = MEMOLIST;
+    this.memoList = this.afDB.list(`/memoList/${this.authManager.getUserInfo().uid}`);
   }
 
-  getMemoList(): Memo[] {
+  getMemoList(): FirebaseListObservable<Memo> {
     return this.memoList;
   }
 
-  getMemo(key: number): Memo {
-    let index = this.memoList.findIndex((memo: Memo, i: number) => {
-      return memo.key === key;
-    });
-
-    return this.memoList[index] || null;
-  }
-
-  createMemo(title: string, contents: string, author: string) {
-    let lastMemo = this.memoList[this.memoList.length - 1];
-    let lastMemoKey = lastMemo ? lastMemo.key : -1;
-    let key = lastMemoKey + 1;
+  createMemo(title: string, contents: string) {
 
     let memo: Memo = {
-      key: key,
       title: title,
+      uid: this.authManager.getUserInfo().uid,
       contents: contents,
-      author: author,
+      author: this.authManager.getUserInfo().email,
       publishedDate: new Date(),
       recentUpdatedDate: new Date(),
     }
 
+    console.log(memo);
+
     this.memoList.push(memo);
   }
 
-  deleteMemo(deleteMemo: Memo) {
-    let index = this.memoList.findIndex((memo: Memo, i: number) => {
-      return memo.key === deleteMemo.key;
-    });
-
-    this.memoList.splice(index, 1);
+  deleteMemo(deleteMemo: any) {
+    this.memoList.remove(deleteMemo);
   }
 
-  editMemo(memoToChange: Memo) {
-    let index = this.memoList.findIndex((memo: Memo, i: number) => {
-      return memo.key === memoToChange.key;
-    });
-
-    this.memoList[index].title = memoToChange.title;
-    this.memoList[index].contents = memoToChange.contents;
-    this.memoList[index].recentUpdatedDate = new Date();
+  editMemo(memoToChange: Memo, title: string, contents: string) {
+    console.log('qfdf', memoToChange);
+    memoToChange.title = title;
+    memoToChange.contents = contents;
   }
 
 }

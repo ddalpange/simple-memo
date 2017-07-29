@@ -38,11 +38,10 @@ export class MemoCreatePage {
 
   onSaveMemo() {
     if(this.memo) {
-      this.memo.title = this.title;
-      this.memo.contents = this.contents;
-      this.memoManager.editMemo(this.memo);
+
+      this.memoManager.editMemo(this.memo, this.title, this.contents);
     } else {
-      this.memoManager.createMemo(this.title, this.contents, 'ddalpange@gmail.com');
+      this.memoManager.createMemo(this.title, this.contents);
     }
     this.navCtrl.pop();
   }

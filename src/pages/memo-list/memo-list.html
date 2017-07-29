@@ -1,10 +1,16 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>메모들</ion-title>
+    <ion-searchbar></ion-searchbar>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onClickMoreOption()">
+        <ion-icon name="more">
+        </ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ng-template ngFor let-memo [ngForOf]="memoList" let-i="index">
+  <ng-template ngFor let-memo [ngForOf]="memoList | async" let-i="index">
     <ion-card (click)="onClickViewMemoDetail(memo)">
       <ion-card-header>
         {{ memo.title }}

@@ -1,5 +1,5 @@
 export interface Memo {
-    key: number;
+    uid: string;
     author: string;                 // 작성자
     title: string;                  // 제목
     contents: string;               // 본문
