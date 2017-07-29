@@ -1,5 +1,8 @@
+import { AngularFireAuth } from 'angularfire2/auth';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AuthManagerProvider } from '../../providers/auth-manager/auth-manager';
+import * as firebase from 'firebase/app';
 
 @IonicPage()
 @Component({
@@ -7,7 +10,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'sign-up.html',
 })
 export class SignUpPage {
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  emailAddress: string;
+  password: string;
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public authManager: AuthManagerProvider,
+    public afAuth: AngularFireAuth
+  ) {
   }
   
   onClickDDalpange() {
@@ -15,7 +27,9 @@ export class SignUpPage {
   }
   
   onClickSignUp() {
-    this.navCtrl.pop();    
+    // this.authManager.signUpUser(this.emailAddress, this.password);
+    // this.navCtrl.pop();    
+    this.afAuth.auth.createUserWithEmailAndPassword(this.emailAddress, this.password).then(res => console.log(res));
   }
   
   onClickNavBack() {
