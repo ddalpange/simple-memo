@@ -59,7 +59,11 @@ export class AuthManagerProvider {
   }
 
   signUpUser(email: string, password: string) {
-    return this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+            .then(userInfo => {
+              this.setUserInfo(userInfo);
+              return userInfo;
+            });;
   }
 
   resetPassword(email: string) {
