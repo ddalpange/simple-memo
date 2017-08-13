@@ -21,8 +21,6 @@ import { MemoManagerProvider } from './../providers/memo-manager/memo-manager';
 import { MyApp } from './app.component';
 import { AuthManagerProvider } from '../providers/auth-manager/auth-manager';
 
-import "froala-editor/js/froala_editor.pkgd.min.js";
-
 
 export const firebaseConfig = {
   apiKey: "AIzaSyAb_0ZNH9Bsj_vPZ4F2W07KqoqwIobUp4A",

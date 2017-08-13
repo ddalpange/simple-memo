@@ -46,7 +46,12 @@ export class MemoListPage {
   }
 
   onClickMoreOption() {
-    const actionSheet = this.actionSheetCtrl.create({
+    const actionSheet = this.getMoreOptionActionSheet();
+    actionSheet.present();
+  }
+
+  getMoreOptionActionSheet() {
+    return this.actionSheetCtrl.create({
       buttons: [
         {
           text: 'Logout',
@@ -60,6 +65,5 @@ export class MemoListPage {
         }
       ]
     });
-    actionSheet.present();
   }
 }

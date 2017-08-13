@@ -15,7 +15,8 @@
       <ion-card-header>
         {{ memo.title }}
       </ion-card-header>
-      <ion-card-content [innerHTML]="memo.contents">
+      <ion-card-content>
+        {{ memo.contents }}
       </ion-card-content>
     </ion-card>
   </ng-template>

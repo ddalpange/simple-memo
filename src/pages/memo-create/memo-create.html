@@ -1,13 +1,18 @@
 <ion-header>
   <ion-navbar color="secondary">
-    <b>
-      <ion-input block placeholder="제목을 입력해주세요." [value]="title" (change)="onChangeTitle($event)" color="light"></ion-input>    
-    </b>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
-  <textarea [froalaEditor]="options" [(ngModel)]="contents" #textarea>
-  </textarea>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label floating>제목을 입력해주세요.</ion-label>
+      <ion-input type="text" [(ngModel)]="title"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>내용을 입력해주세요.</ion-label>
+      <ion-textarea rows="18" type="text" [(ngModel)]="contents"></ion-textarea>
+    </ion-item>
+  </ion-list>
   <ion-fab right bottom>
     <button ion-fab icon-only color="secondary" (click)="onSaveMemo()"><ion-icon name="checkmark"></ion-icon></button>
   </ion-fab>

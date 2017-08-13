@@ -1,8 +1,7 @@
 import { MemoManagerProvider } from './../../providers/memo-manager/memo-manager';
 import { Memo } from './../../models/memo/memo.interface';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import * as A from 'angular-froala-wysiwyg';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 
 @IonicPage()
 @Component({
@@ -14,16 +13,11 @@ export class MemoCreatePage {
   memo: Memo;
   title: string;
   contents: string;
-  options: any = {
-    heightMin: 450,
-    toolbarButtons: [
-      'bold', 'italic', 'underline', 'paragraphFormat', 'formatOL',
-      'formatUL', 'insertHTML', 'undo', 'redo', 'html'
-    ]
-  }
+  
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
+    public alertCtrl: AlertController,
     public memoManager: MemoManagerProvider) {
   }
 
@@ -36,20 +30,27 @@ export class MemoCreatePage {
     }
   }
 
-  onChangeTitle(event: KeyboardEvent) {
-    this.title = event.target['value'];
-  }
-  
-  onChangeContents(event: KeyboardEvent) {
-    this.contents = event.target['value'];
-  }
-
   onSaveMemo() {
+    
+    if(!this.title || !this.contents) {
+      const alert = this.getValidationFailAlert();
+      alert.present();
+      return;
+    }
+
     if(this.memo) {
       this.memoManager.editMemo(this.memo, this.title, this.contents);
     } else {
       this.memoManager.createMemo(this.title, this.contents);
     }
+    
     this.navCtrl.pop();
+  }
+
+  getValidationFailAlert() {
+    return this.alertCtrl.create({
+      title: '앗!!',
+      subTitle: '제목과 내용중 안쓰신게 있네요!'
+    });
   }
 }

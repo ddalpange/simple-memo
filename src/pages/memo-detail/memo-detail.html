@@ -16,7 +16,9 @@
       <h1>{{ memo.title }}</h1>
     </ion-card-header>
     <ion-card-content>
-      <p [innerHTML]="memo.contents"></p>
+      <p>
+        {{ memo.contents }}
+      </p>
       <div class="etc">
         <p>
           <span>저자</span> 
