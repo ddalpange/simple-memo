@@ -40,7 +40,6 @@ export class SignUpPage {
       alert.present();
     })
     .catch(err => { 
-      console.error('실패!', err);
       loader.dismiss();
       const alert = this.getFailAlert(err.message);
       alert.present();
@@ -53,7 +52,6 @@ export class SignUpPage {
       subTitle: '회원가입에 성공하였습니다.',
       buttons: [{
         text: '확인',
-        handler: () => { this.navCtrl.pop(); }
       }]
     });
   }

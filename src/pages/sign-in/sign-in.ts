@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, LoadingController } from 'ionic-angular';
 
 import { SignUpPage } from './../sign-up/sign-up';
@@ -23,11 +23,6 @@ export class SignInPage {
     public loadingCtrl: LoadingController,
     public authManager: AuthManagerProvider
   ) {}
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignInPage');
-  }
-  ngOnInit() {
-  }
 
   onClickDDalpange() {
     window.location.href = "https://ddalpange.github.io";
