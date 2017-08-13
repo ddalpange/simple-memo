@@ -18,6 +18,7 @@ import { MemoManagerProvider } from './../../providers/memo-manager/memo-manager
 export class MemoListPage {
 
   searchKeyword: string = '';
+  viewCount: number = 10;
   memoList: FirebaseListObservable<Memo>;
 
   constructor(
@@ -31,6 +32,13 @@ export class MemoListPage {
  
   ngOnInit() {
     this.memoList = this.memoManager.getMemoList();
+  }
+
+  doInfinite(infiniteScroll: any) {
+    window.setTimeout(() => {
+      this.viewCount += this.viewCount;
+      infiniteScroll.complete();
+    }, 500);
   }
 
   filterMemo(memo: Memo): boolean {
