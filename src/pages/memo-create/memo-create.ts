@@ -11,6 +11,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 
 export class MemoCreatePage {
   memo: Memo;
+  memoKey: string;
   title: string;
   contents: string;
   
@@ -23,8 +24,10 @@ export class MemoCreatePage {
 
   ngOnInit() {
     let memo = this.navParams.get('memo');
+    let memoKey = this.navParams.get('memoKey');
     if(memo) {
       this.memo = memo;
+      this.memoKey = memoKey;
       this.title = memo.title;
       this.contents = memo.contents;
     }
@@ -39,7 +42,7 @@ export class MemoCreatePage {
     }
 
     if(this.memo) {
-      this.memoManager.editMemo(this.memo, this.title, this.contents);
+      this.memoManager.editMemo(this.memo, this.memoKey, this.title, this.contents);
     } else {
       this.memoManager.createMemo(this.title, this.contents);
     }

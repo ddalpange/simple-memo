@@ -2,7 +2,8 @@ import { AuthManagerProvider } from './../auth-manager/auth-manager';
 import { Memo } from './../../models/memo/memo.interface';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Observable } from 'rxjs/Observable';
 
 /*
   Generated class for the MemoManagerProvider provider.
@@ -13,8 +14,8 @@ import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable }
 @Injectable()
 export class MemoManagerProvider {
 
-  memoList: FirebaseListObservable<any>
-
+  memoList: Observable<Memo[]>
+  memoListRef: AngularFireList<Memo>;
   constructor(
     public http: Http,
     public afDB: AngularFireDatabase,
@@ -24,10 +25,11 @@ export class MemoManagerProvider {
   }
 
   initMemoList() {
-    this.memoList = this.afDB.list(`/memoList/${this.authManager.getUserInfo().uid}`);
+    this.memoListRef = this.afDB.list(`/memoList/${this.authManager.getUserInfo().uid}`)
+    this.memoList = this.memoListRef.valueChanges();
   }
 
-  getMemoList(): FirebaseListObservable<Memo> {
+  getMemoList(): Observable<Memo[]> {
     return this.memoList;
   }
 
@@ -42,19 +44,17 @@ export class MemoManagerProvider {
       recentUpdatedDate: new Date(),
     }
 
-    console.log(memo);
-
-    this.memoList.push(memo);
+    this.memoListRef.push(memo);
   }
 
-  deleteMemo(deleteMemo: any) {
-    this.memoList.remove(deleteMemo);
+  deleteMemo(memoKey: string) {
+    this.memoListRef.remove(memoKey);
   }
 
-  editMemo(memoToChange: Memo, title: string, contents: string) {
-    console.log('qfdf', memoToChange);
+  editMemo(memoToChange: Memo, memoKey: string, title: string, contents: string) {
     memoToChange.title = title;
     memoToChange.contents = contents;
+    this.memoListRef.set(memoKey, memoToChange);
   }
 
 }

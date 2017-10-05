@@ -11,7 +11,7 @@
 </ion-header>
 <ion-content>
   <ng-template ngFor let-memo [ngForOf]="memoList | async | slice : 0 : viewCount" let-i="index">
-    <ion-card (click)="onClickViewMemoDetail(memo)" *ngIf="filterMemo(memo)">
+    <ion-card (click)="onClickViewMemoDetail(memo, memo.$key)" *ngIf="filterMemo(memo)">
       <ion-card-header>
         {{ memo.title }}
       </ion-card-header>
