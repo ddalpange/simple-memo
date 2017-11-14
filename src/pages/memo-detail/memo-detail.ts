@@ -25,6 +25,7 @@ export class MemoDetailPage {
   
   ngOnInit() {
     this.memo = this.navParams.get('memo');
+    this.memoKey = this.navParams.get('memoKey');
   }
 
   onOpenEditMemo() {

@@ -26,7 +26,9 @@ export class MemoManagerProvider {
 
   initMemoList() {
     this.memoListRef = this.afDB.list(`/memoList/${this.authManager.getUserInfo().uid}`)
-    this.memoList = this.memoListRef.valueChanges();
+    this.memoList = this.memoListRef.snapshotChanges().map(changes => {
+      return changes.map(c => ({ key: c.payload.key, ...c.payload.val()}));
+    })
   }
 
   getMemoList(): Observable<Memo[]> {

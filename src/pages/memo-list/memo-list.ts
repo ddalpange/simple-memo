@@ -46,8 +46,7 @@ export class MemoListPage {
   }
 
   onClickViewMemoDetail(memo: Memo, memoKey: string) {
-    console.log(memo, memoKey);
-    // this.navCtrl.push(MemoDetailPage, { memo: memo, memoKey: memoKey });
+    this.navCtrl.push(MemoDetailPage, { memo: memo, memoKey: memoKey });
   }
   
   onClickCreateMemo() {
