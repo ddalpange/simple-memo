@@ -1,26 +1,23 @@
-This is a starter template for [Ionic](http://ionicframework.com/docs/) projects.
+# Simple Memo
+Ionic + Angular + Firebase 로 만드는 Serverless application
 
-## How to use this template
+## POST
 
-*This template does not work on its own*. The shared files for each starter are found in the [ionic2-app-base repo](https://github.com/ionic-team/ionic2-app-base).
+1. [프로젝트 생성하기](/2017/10/03/project-make-simple-memo-1)
+1. [페이지 프로토타이핑](/2017/10/03/project-make-simple-memo-2)
+1. [가상데이터 적용해보기](/2017/10/03/project-make-simple-memo-3)
+1. [파이어베이스 Auth 적용하기](/2017/10/03/project-make-simple-memo-4)
+1. [파이어베이스 RealTime DB 사용하기](/2017/10/03/project-make-simple-memo-5)
+1. [인피니티 스크롤 적용](/2017/10/03/project-make-simple-memo-6)
 
-To use this template, either create a new ionic project using the ionic node.js utility, or copy the files from this repository into the [Starter App Base](https://github.com/ionic-team/ionic2-app-base).
+## LINK
+* [git](https://github.com/ddalpange/simple-memo)
+* [demo](https://simple-memo-89b56.firebaseapp.com/)
 
-### With the Ionic CLI:
+## Screenshots
 
-Take the name after `ionic2-starter-`, and that is the name of the template to be used when using the `ionic start` command below:
-
-```bash
-$ sudo npm install -g ionic cordova
-$ ionic start myBlank blank
-```
-
-Then, to run it, cd into `myBlank` and run:
-
-```bash
-$ ionic cordova platform add ios
-$ ionic cordova run ios
-```
-
-Substitute ios for android if not on a Mac.
-
+![로그인 페이지](https://ddalpange.github.io/images/memo/sign-in-page.png)
+![회원가입 페이지](https://ddalpange.github.io/images/memo/sign-up-page.png)
+![메모 리스트 페이지](https://ddalpange.github.io/images/memo/memo-list-page.png)
+![메모 상세 페이지](https://ddalpange.github.io/images/memo/memo-detail-page.png)
+![메모 만들기 페이지](https://ddalpange.github.io/images/memo/memo-create-page.png)
